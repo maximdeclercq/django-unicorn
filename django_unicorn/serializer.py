@@ -35,6 +35,11 @@ class JSONDecodeError(Exception):
     pass
 
 
+def isinstance(obj, types):
+    """Fix the behavior of isinstance if the base class is imported in different ways."""
+    return issubclass(type(obj), types)
+
+
 def _parse_field_values_from_string(model: Model) -> None:
     """
     Convert the model fields' value to match the field type if appropriate.
@@ -171,7 +176,7 @@ def dumps(data: dict, fix_floats: bool = True) -> str:
     Args:
         param fix_floats: Whether any floats should be converted to strings. Defaults to `True`,
             but will be faster without it.
-    
+
     Returns a string which deviates from `orjson.dumps`, but seems more useful.
     """
 
